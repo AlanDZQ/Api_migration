@@ -1,0 +1,8 @@
+IndexReaderireader = IndexReader.open(root);
+searcher = newIndexSearcher(ireader);
+collector = newTopDocCollector(hitsPerPage*cachePages);
+-----
+IndexReaderireader = IndexReader.open(FSDirectory.open(root),true);
+searcher = newIndexSearcher(ireader);
+collector = TopScoreDocCollector.create(hitsPerPage*cachePages,false);
+

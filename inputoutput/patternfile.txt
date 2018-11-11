@@ -1,0 +1,32 @@
+boolean [-v_7-] = !IndexReader.indexExists([-v_0_String-]);
+[-v_6-] = new IndexWriter([-v_0_String-],m_0([-v_2_String-]),[-v_7_boolean-]);
+====================Replacedby======================
+Directory [-v_1-] = FSDirectory.open(newFile([-v_0_String-]));
+Analyzer [-v_3-] = m_0([-v_2_String-]);
+IndexWriterConfig [-v_5-] = new IndexWriterConfig(c_0_Version,[-v_3_Analyzer-]);
+[-v_5_IndexWriterConfig-].setOpenMode(OpenMode.CREATE_OR_APPEND);
+[-v_6-] = newIndexWriter([-v_1_Directory-],[-v_5_IndexWriterConfig-]);
+===
+v_0_SpannableStringBuilder.append(Html.fromHtml(m_0(u_0_AboutDialog,v_2_String,v_3_String,u_1)));
+====================Replacedby======================
+String v_1 = m_0(u_0_AboutDialog,v_2_String,v_3_String,u_1);
+if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N){
+  v_4 = Html.fromHtml(v_1_String,Html.FROM_HTML_MODE_LEGACY);
+}else{
+  v_4 = Html.fromHtml(v_1_String);
+}
+v_0_SpannableStringBuilder.append(v_4_CharSequence);
+===
+new TopDocCollector(V_2_int)
+====================Replacedby======================
+TopScoreDocCollector.create(V_2_int,C_1_boolean)
+===
+new TopDocCollector(V_0_int*V_1_int)
+====================Replacedby======================
+TopScoreDocCollector.create(V_0_int*V_1_int,C_1_boolean)
+===
+IndexReader.open(new File(V_0_File,U_0_Project_inst.M_0()))
+====================Replacedby======================
+IndexReader.open(FSDirectory.open(new File(V_0_File,U_0_Project_inst.M_0())),C_1_boolean)
+===
+

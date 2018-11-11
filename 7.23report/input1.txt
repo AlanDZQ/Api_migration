@@ -1,0 +1,2 @@
+boolean recreate = !IndexReader.indexExists(indexPath);
+indexWriter = new IndexWriter(indexPath,getAnalyzer(analyzer),recreate);

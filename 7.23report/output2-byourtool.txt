@@ -1,0 +1,7 @@
+String [-v_1-] = getString(R.string.about_text,app_name,versionName,YAPI.GetAPIVersion());
+if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N){
+[-v_4-] = Html.fromHtml([-v_1_String-],Html.FROM_HTML_MODE_LEGACY);
+}else{
+[-v_4-] = Html.fromHtml([-v_1_String-]);
+}
+aboutBody.append([-v_4_CharSequence-]);

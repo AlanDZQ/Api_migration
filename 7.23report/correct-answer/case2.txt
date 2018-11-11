@@ -1,0 +1,10 @@
+aboutBody.append(Html.fromHtml(getString(R.string.about_text,app_name,versionName,YAPI.GetAPIVersion())));
+-----
+String text = getString(R.string.about_text,app_name,versionName,YAPI.GetAPIVersion());
+Spanned html;
+if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+  html = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
+} else {
+  html = Html.fromHtml(text);
+}
+aboutBody.append(html);

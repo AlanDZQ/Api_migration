@@ -1,0 +1,5 @@
+Directory [-v_1-] = FSDirectory.open(newFile(indexPath));
+Analyzer [-v_3-] = getAnalyzer(analyzer);
+IndexWriterConfig [-v_5-] = new IndexWriterConfig(c_0_Version,[-v_3_Analyzer-]);
+[-v_5_IndexWriterConfig-].setOpenMode(OpenMode.CREATE_OR_APPEND);
+indexWriter = new IndexWriter([-v_1_Directory-],[-v_5_IndexWriterConfig-]);

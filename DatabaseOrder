@@ -1,0 +1,78 @@
+-- #effective commit & project
+SELECT DISTINCT commitnum FROM Snippet
+SELECT DISTINCT project FROM Snippet
+
+-- TargetVerion by Snippet
+SELECT nver, count( * ) AS count FROM Snippet
+GROUP BY nver
+ORDER BY count DESC
+
+-- SourceVersion by Snippet
+SELECT over, count( * ) AS count FROM Snippet
+GROUP BY over
+ORDER BY count DESC
+
+CREATE VIEW SnippetWithPattern AS
+  SELECT verchange, project,commitnum,patternid,Pattern.old AS old,Pattern.new AS new, Pattern.level AS level FROM Snippet
+    LEFT JOIN Pattern ON Snippet.patternid=Pattern.ID
+
+-- Popularity of Pattern
+SELECT patternid, count( * ) AS count,old,new, level
+FROM SnippetWithPattern
+GROUP BY patternid
+ORDER BY count DESC
+
+-- Level #pattern #occurence
+SELECT Count(*) FROM Pattern GROUP BY level
+SELECT Count(*) FROM SnippetWithPattern GROUP BY level
+
+-- Version by Snippet
+SELECT verchange, count( * ) AS count
+FROM SnippetWithPattern
+GROUP BY verchange
+ORDER BY count DESC
+
+-- Popular Target Version & Source Version
+-- Copy SnippetWithPattern to clipboard and then excel
+-- ADD support column =COUNTIF(A:A,A189), then sort and filter
+
+CREATE VIEW versionpattern AS
+  SELECT DISTINCT verchange,patternid FROM SnippetWithPattern
+
+-- Version by Pattern
+SELECT verchange, count( * ) AS count
+FROM versionpattern
+GROUP BY verchange
+ORDER BY count DESC
+
+-- Version Range of Pattern
+SELECT patternid, count( * ) AS count
+FROM versionpattern
+GROUP BY patternid
+ORDER BY count DESC
+
+CREATE VIEW versioncommit AS
+  SELECT DISTINCT commitnum, verchange, over,nver  FROM Snippet
+
+-- Version by Commits
+SELECT verchange, count( * ) AS count
+FROM versioncommit
+GROUP BY verchange
+ORDER BY count DESC
+
+-- TargetVerion by Commits
+SELECT nver, count( * ) AS count
+FROM versioncommit
+GROUP BY nver
+ORDER BY count DESC
+
+-- SourceVersion by Commits
+SELECT over, count( * ) AS count
+FROM versioncommit
+GROUP BY over
+ORDER BY count DESC
+
+-- Number of UNKNOWN type
+SELECT * from Pattern WHERE old LIKE '%UNKNOWN%'
+SELECT * from Pattern WHERE new LIKE '%UNKNOWN%'
+SELECT * from Pattern WHERE old LIKE '%UNKNOWN%' AND new LIKE '%UNKNOWN%'

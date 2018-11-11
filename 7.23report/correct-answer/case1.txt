@@ -1,0 +1,8 @@
+boolean recreate = !IndexReader.indexExists(indexPath);
+indexWriter = new IndexWriter(indexPath,getAnalyzer(analyzer), recreate);
+-----
+Directory dir = FSDirectory.open(new File(indexPath));
+Analyzer an = getAnalyzer(analyzer);
+IndexWriterConfig iwc = new IndexWriterConfig(LUCENE_VERSION,an);
+iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
+indexWriter = new IndexWriter(dir, iwc);
